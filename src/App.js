@@ -1,11 +1,8 @@
 import "./App.css";
+import Game from "./Game/Game";
 
 function App() {
-  return (
-    <div>
-      <h1>Hello Tic Tac Toe</h1>
-    </div>
-  );
+  return <Game />;
 }
 
 export default App;
