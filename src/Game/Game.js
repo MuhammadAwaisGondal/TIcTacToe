@@ -9,16 +9,26 @@ function Square({ value, onSquareClick }) {
 }
 
 function Board({ xIsNext, squares, onPlay }) {
+  
   function handleClick(i) {
-    // TODO: Implement this function
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+    const nextSquares = squares.slice();
+    if (xIsNext) {
+      nextSquares[i] = 'O';
+    } else {
+      nextSquares[i] = 'X';
+    }
+    onPlay(nextSquares);
   }
 
-  const winner = calculateWinner(squares);
+ const winner = calculateWinner(squares);
   let status;
   if (winner) {
-    status = "Winner: " + winner;
+    status = "Winner of this round is: " + winner;
   } else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
+    status = "Next player is: " + (xIsNext ? "O" : "X");
   }
 
   return (
@@ -50,11 +60,13 @@ export default function Game() {
   const currentSquares = history[currentMove];
 
   function handlePlay(nextSquares) {
-    // TODO: Implement this function
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
   }
 
   function jumpTo(nextMove) {
-    // TODO: Implement this function
+    setCurrentMove(nextMove);
   }
 
   const moves = history.map((squares, move) => {
