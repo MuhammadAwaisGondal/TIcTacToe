@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 function Square({ value, onSquareClick }) {
   return (
@@ -9,21 +9,20 @@ function Square({ value, onSquareClick }) {
 }
 
 function Board({ xIsNext, squares, onPlay }) {
-  
   function handleClick(i) {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
     const nextSquares = squares.slice();
     if (xIsNext) {
-      nextSquares[i] = 'O';
+      nextSquares[i] = "O";
     } else {
-      nextSquares[i] = 'X';
+      nextSquares[i] = "X";
     }
     onPlay(nextSquares);
   }
 
- const winner = calculateWinner(squares);
+  const winner = calculateWinner(squares);
   let status;
   if (winner) {
     status = "Winner of this round is: " + winner;
@@ -56,6 +55,7 @@ function Board({ xIsNext, squares, onPlay }) {
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
+  const [playAgainstComputer, setPlayAgainstComputer] = useState(false);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
@@ -63,6 +63,15 @@ export default function Game() {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
+
+    if (playAgainstComputer && !calculateWinner(nextSquares)) {
+      const computerMove = findBestMove(nextSquares);
+      const newSquares = nextSquares.slice();
+      newSquares[computerMove] = "X";
+
+      setHistory([...nextHistory, newSquares]);
+      setCurrentMove(nextHistory.length);
+    }
   }
 
   function jumpTo(nextMove) {
@@ -72,9 +81,9 @@ export default function Game() {
   const moves = history.map((squares, move) => {
     let description;
     if (move > 0) {
-      description = 'Go to move #' + move;
+      description = "Go to move #" + move;
     } else {
-      description = 'Go to game start';
+      description = "Go to game start";
     }
     return (
       <li key={move}>
@@ -83,12 +92,30 @@ export default function Game() {
     );
   });
 
+  const handleTogglePlayer = () => {
+    setPlayAgainstComputer(!playAgainstComputer);
+    setHistory([Array(9).fill(null)]);
+    setCurrentMove(0);
+  };
+
   return (
     <div className="game">
+      <div className="game-top">
+        <button onClick={handleTogglePlayer}>
+          {playAgainstComputer
+            ? "Play against other player"
+            : "Play against computer"}
+        </button>
+      </div>
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
+        <div className="status">
+          {calculateWinner(currentSquares)
+            ? "Winner of this round is: " + calculateWinner(currentSquares)
+            : `Next player is: ${xIsNext ? "O" : "X"}`}
+        </div>
         <ol>{moves}</ol>
       </div>
     </div>
@@ -113,4 +140,13 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+
+function findBestMove(squares) {
+  for (let i = 0; i < squares.length; i++) {
+    if (!squares[i]) {
+      return i;
+    }
+  }
+  return -1;
 }
