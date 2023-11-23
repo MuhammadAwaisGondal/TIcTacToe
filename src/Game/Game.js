@@ -1,34 +1,37 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 function Square({ value, onSquareClick }) {
+  const style = {
+    color: value === 'O' ? 'blue' : value === 'X' ? 'green' : 'black',
+    fontWeight: "bold"
+  };
   return (
-    <button className="square" onClick={onSquareClick}>
+    <button className="square" onClick={onSquareClick} style={style}>
       {value}
     </button>
   );
 }
 
 function Board({ xIsNext, squares, onPlay }) {
-  
   function handleClick(i) {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
     const nextSquares = squares.slice();
     if (xIsNext) {
-      nextSquares[i] = 'O';
-    } else {
       nextSquares[i] = 'X';
+    } else {
+      nextSquares[i] = 'O';
     }
     onPlay(nextSquares);
   }
 
- const winner = calculateWinner(squares);
+  const winner = calculateWinner(squares);
   let status;
   if (winner) {
-    status = "Winner of this round is: " + winner;
+    status = 'Winner: ' + winner;
   } else {
-    status = "Next player is: " + (xIsNext ? "O" : "X");
+    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
 
   return (
