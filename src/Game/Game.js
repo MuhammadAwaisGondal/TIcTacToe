@@ -143,10 +143,22 @@ function calculateWinner(squares) {
 }
 
 function findBestMove(squares) {
+  const emptySquares = [];
   for (let i = 0; i < squares.length; i++) {
     if (!squares[i]) {
-      return i;
+      const tempSquares = squares.slice();
+      tempSquares[i] = "X";
+      if (calculateWinner(tempSquares)) {
+        return i;
+      }
+      emptySquares.push(i);
     }
   }
+
+  if (emptySquares.length > 0) {
+    const randomIndex = Math.floor(Math.random() * emptySquares.length);
+    return emptySquares[randomIndex];
+  }
+
   return -1;
 }
