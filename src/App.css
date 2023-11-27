@@ -157,19 +157,19 @@ body {
 }
 
 #players button {
-  width: 3rem;
-  border: none;
-  background: none;
+  font: inherit;
+  width: 4rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  background: #46432f;
   color: #c3b759;
-  font-size: 0.9rem;
   cursor: pointer;
   transition: color 0.2s;
   padding: 0.5rem 0.25rem 0.25rem 0.25rem;
   text-align: center;
-}
-
-#players button:hover {
-  color: #f8ca31;
+  text-transform: uppercase;
+  font: inherit;
+  font-size: 1rem;
 }
 
 .player {

@@ -15,7 +15,6 @@ function App() {
   }, [firstPlayerTitle, secondPlayerTitle])
 
   const handlePlayerTitleChange = (id, value) => {
-    //  updatedPlayers = []
     if(id == "player1"){
       setFirstPlayerTitle(value)
     } else {
