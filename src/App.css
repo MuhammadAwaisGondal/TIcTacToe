@@ -133,3 +133,12 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+/* Add your styles for sun and moon using the colors object */
+.sun {
+  color: yellow; /* or colors.sun.light */
+}
+
+.moon {
+  color: #c96dfd; /* or colors.moon.dark */
+}
