@@ -111,11 +111,6 @@ export default function Game() {
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
-        <div className="status">
-          {calculateWinner(currentSquares)
-            ? "Winner of this round is: " + calculateWinner(currentSquares)
-            : `Next player is: ${xIsNext ? "O" : "X"}`}
-        </div>
         <ol>{moves}</ol>
       </div>
     </div>
