@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Player from "./Player";
 
 function Square({ value, onSquareClick }) {
   return (
@@ -54,11 +55,28 @@ function Board({ xIsNext, squares, onPlay, players }) {
   );
 }
 
-export default function Game({players}) {
+export default function Game() {
+  const [firstPlayerTitle, setFirstPlayerTitle] = useState("Player 1");
+  const [secondPlayerTitle, setSecondPlayerTitle] = useState("Player 2");
+  const [players, setPlayers] = useState([firstPlayerTitle, secondPlayerTitle]);
+
+  useEffect(() => {
+    let updatedPlayers = [firstPlayerTitle, secondPlayerTitle]
+    setPlayers(updatedPlayers)
+  }, [firstPlayerTitle, secondPlayerTitle])
+
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
+
+  const handlePlayerTitleChange = (id, value) => {
+    if (id === "player1") {
+      setFirstPlayerTitle(value);
+    } else {
+      setSecondPlayerTitle(value);
+    }
+  };
 
   function handlePlay(nextSquares) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
@@ -85,6 +103,11 @@ export default function Game({players}) {
   });
 
   return (
+    <>
+    <ol id="players">
+        <Player id="player1" name={firstPlayerTitle} updatePlayerTitle={handlePlayerTitleChange} symbol="X"/>
+        <Player id="player2" name={secondPlayerTitle} updatePlayerTitle={handlePlayerTitleChange} symbol="O"/>
+      </ol>
     <div className="game">
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} players={players} />
@@ -93,6 +116,7 @@ export default function Game({players}) {
         <ol>{moves}</ol>
       </div>
     </div>
+    </>
   );
 }
 
