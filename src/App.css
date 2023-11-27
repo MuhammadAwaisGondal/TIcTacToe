@@ -160,7 +160,7 @@ body {
   width: 3rem;
   border: none;
   background: none;
-  color: #c3ba78;
+  color: #c3b759;
   font-size: 0.9rem;
   cursor: pointer;
   transition: color 0.2s;
@@ -183,7 +183,7 @@ body {
   display: inline-block;
   width: 10rem;
   font-size: 1rem;
-  color: #e1dec7;
+  color: #c3b759;
   text-transform: uppercase;
   margin: 0;
   padding: 0.5rem;
@@ -207,5 +207,5 @@ body {
 .player-symbol {
   margin-left: 1rem;
   font-size: 1rem;
-  color: #e1dec7;
+  color: #c3b759;
 }

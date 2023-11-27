@@ -5,7 +5,11 @@ export default function Player({id, name, symbol, updatePlayerTitle}) {
     const [isEditing, setIsEditing] = useState(false)
 
     const handleEdit = () => {
-        setIsEditing((editing) => !editing)
+        if (name === '') {
+            alert('Name cannot be empty');
+        } else {
+            setIsEditing((editing) => !editing);
+        }
     }
 
     const handlePlayerNameChange = (value) => {
