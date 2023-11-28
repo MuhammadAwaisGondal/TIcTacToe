@@ -60,17 +60,18 @@ export default function Game() {
   const currentSquares = history[currentMove];
 
   function handlePlay(nextSquares) {
-    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
-    setHistory(nextHistory);
-    setCurrentMove(nextHistory.length - 1);
+    const nextHistory = history.slice(0, currentMove + 1);
+    const newCurrentMove = nextHistory.length;
+    const newHistory = [...nextHistory, nextSquares];
 
-    if (playAgainstComputer && !calculateWinner(nextSquares)) {
+    if (playAgainstComputer && !calculateWinner(nextSquares) && xIsNext) {
       const computerMove = findBestMove(nextSquares);
-      const newSquares = nextSquares.slice();
-      newSquares[computerMove] = "X";
-
-      setHistory([...nextHistory, newSquares]);
-      setCurrentMove(nextHistory.length);
+      nextSquares[computerMove] = "X";
+      setHistory([...newHistory, nextSquares]);
+      setCurrentMove(newCurrentMove + 1);
+    } else {
+      setHistory(newHistory);
+      setCurrentMove(newCurrentMove);
     }
   }
 
