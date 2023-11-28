@@ -6,7 +6,7 @@ function App() {
   return (
     <>
     <div className="wel">{wel}</div>
-    <Game />
+    <Game/>
     </>
     );
 }
