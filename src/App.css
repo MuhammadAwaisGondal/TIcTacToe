@@ -118,12 +118,10 @@ body {
 .status {
   margin-bottom: 10px;
 }
-.game {
-  display: flex;
-  flex-direction: row;
-}
-
 .game-info {
   margin-left: 20px;
+}
+.game-top{
+  margin: 10px 0 10px 0;
 }
 
