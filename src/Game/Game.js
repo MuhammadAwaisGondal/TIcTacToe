@@ -17,20 +17,21 @@ function Board({ xIsNext, squares, onPlay, players }) {
     }
     const nextSquares = squares.slice();
     if (xIsNext) {
-      nextSquares[i] = 'O';
-    } else {
       nextSquares[i] = 'X';
+    } else {
+      nextSquares[i] = 'O';
     }
     onPlay(nextSquares);
   }
 
  const winner = calculateWinner(squares);
   let status;
+  debugger
   const winnerName = (winner === 'X') ? players[0] : players[1]
   if (winner) {
     status = "Winner of this round is: " + winnerName;
   } else {
-    status = "Next player is: " + (xIsNext ? "O" : "X");
+    status = "Next player is: " + (xIsNext ? players[0] : players[1]);
   }
 
   return (
