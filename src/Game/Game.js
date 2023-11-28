@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import Player from "./Player";
 
 function Square({ value, onSquareClick }) {
-  return (
-    <button className="square" onClick={onSquareClick}>
+  return(
+    <button className={`square ${value === 'O' ? "blue" : "green"}`} onClick={onSquareClick}>
       {value}
-    </button>
+      </button>
   );
 }
+
 
 function Board({ xIsNext, squares, onPlay, players, playAgainstComputer }) {
   

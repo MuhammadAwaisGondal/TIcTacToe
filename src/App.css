@@ -36,7 +36,6 @@
     transform: rotate(360deg);
   }
 }
-
 * {
   box-sizing: border-box;
 }
@@ -148,7 +147,14 @@ body {
   border-color: #f6e35a;
   animation: pulse 2s infinite ease-in-out;
 }
-
+.blue {
+  color: blue;
+  font-weight: bold;
+}
+.green{
+  color : green;
+  font-weight: bold;
+}
 #players.highlight-player li.active .player-name,
 #players.highlight-player li.active .player-symbol {
   color: #f6e35a;
