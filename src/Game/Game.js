@@ -9,7 +9,7 @@ function Square({ value, onSquareClick }) {
   );
 }
 
-function Board({ xIsNext, squares, onPlay, players }) {
+function Board({ xIsNext, squares, onPlay, players, playAgainstComputer }) {
   
   function handleClick(i) {
     if (calculateWinner(squares) || squares[i]) {
@@ -27,7 +27,8 @@ function Board({ xIsNext, squares, onPlay, players }) {
   const winner = calculateWinner(squares);
   let status;
   debugger
-  const winnerName = (winner === 'X') ? players[0] : players[1]
+  let winnerName = (winner === 'X') ? players[0] : players[1]
+  if(playAgainstComputer && winner === "O") { winnerName = "Computer"}
   if (winner) {
     status = "Winner of this round is: " + winnerName;
   } else {
@@ -87,7 +88,7 @@ export default function Game() {
 
     if (playAgainstComputer && !calculateWinner(nextSquares) && xIsNext) {
       const computerMove = findBestMove(nextSquares);
-      nextSquares[computerMove] = "X";
+      nextSquares[computerMove] = "O";
       setHistory([...newHistory, nextSquares]);
       setCurrentMove(newCurrentMove + 1);
     } else {
@@ -124,7 +125,7 @@ export default function Game() {
     <>
     <ol id="players">
         <Player id="player1" name={firstPlayerTitle} updatePlayerTitle={handlePlayerTitleChange} symbol="X"/>
-        <Player id="player2" name={secondPlayerTitle} updatePlayerTitle={handlePlayerTitleChange} symbol="O"/>
+        { !playAgainstComputer && <Player id="player2" name={secondPlayerTitle} updatePlayerTitle={handlePlayerTitleChange} symbol="O"/> }
       </ol>
     <div className="game">
       <div className="game-top">
@@ -135,7 +136,7 @@ export default function Game() {
         </button>
       </div>
       <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} players={players} />
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} players={players} playAgainstComputer={playAgainstComputer} />
       </div>
       <div className="game-info">
         <ol>{moves}</ol>

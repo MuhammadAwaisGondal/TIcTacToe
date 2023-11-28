@@ -16,11 +16,6 @@ export default function Player({id, name, symbol, updatePlayerTitle}) {
         updatePlayerTitle(id, value)
     }
 
-    let playerName = <span className="player-name">{name}</span>
-    if(isEditing) {
-        playerName = <input className="player-name" value={name} onChange={ (e) => handlePlayerNameChange(e.target.value) }></input>
-    }
-
     return (
         <li>
             <span className="player">
