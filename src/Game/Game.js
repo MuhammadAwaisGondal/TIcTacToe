@@ -1,14 +1,11 @@
-import { useState } from 'react';
+import { useState } from 'react'
+
 
 function Square({ value, onSquareClick }) {
-  const style = {
-    color: value === 'O' ? 'blue' : value === 'X' ? 'green' : 'black',
-    fontWeight: "bold"
-  };
-  return (
-    <button className="square" onClick={onSquareClick} style={style}>
+  return(
+    <button className={`square ${value === 'O' ? "blue" : "green"}`} onClick={onSquareClick}>
       {value}
-    </button>
+      </button>
   );
 }
 

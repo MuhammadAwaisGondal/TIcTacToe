@@ -36,7 +36,7 @@
     transform: rotate(360deg);
   }
 }
-{
+*{
   box-sizing: border-box;
 }
 
@@ -125,4 +125,12 @@ body {
 
 .game-info {
   margin-left: 20px;
+}
+.blue {
+  color: blue;
+  font-weight: bold;
+}
+.green{
+  color : green;
+  font-weight: bold;
 }
