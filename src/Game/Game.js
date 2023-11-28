@@ -1,5 +1,7 @@
+import "./Games.css";
 import React, { useState, useEffect } from "react";
 import Player from "./Player";
+
 
 function Square({ value, onSquareClick }) {
   return(
