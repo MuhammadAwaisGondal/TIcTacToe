@@ -77,7 +77,7 @@ export default function Game() {
       description = 'Go to game start';
     }
     return (
-      <li key={move}>
+      <li className="lis" key={move}>
         <button className="scrollhistory" onClick={() => jumpTo(move)}>{description}</button>
       </li>
     );
