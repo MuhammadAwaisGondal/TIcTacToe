@@ -1,15 +1,18 @@
-import { useState } from "react";
 import "./Games.css";
+import React, { useState, useEffect } from "react";
+import Player from "./Player";
+
 
 function Square({ value, onSquareClick }) {
-  return (
-    <button className="square" onClick={onSquareClick}>
+  return(
+    <button className={`square ${value === 'O' ? "blue" : "green"}`} onClick={onSquareClick}>
       {value}
-    </button>
+      </button>
   );
 }
 
-function Board({ xIsNext, squares, onPlay }) {
+
+function Board({ xIsNext, squares, onPlay, players, playAgainstComputer }) {
   
   function handleClick(i) {
     if (calculateWinner(squares) || squares[i]) {
@@ -17,19 +20,22 @@ function Board({ xIsNext, squares, onPlay }) {
     }
     const nextSquares = squares.slice();
     if (xIsNext) {
-      nextSquares[i] = 'O';
-    } else {
       nextSquares[i] = 'X';
+    } else {
+      nextSquares[i] = 'O';
     }
     onPlay(nextSquares);
   }
 
- const winner = calculateWinner(squares);
+  const winner = calculateWinner(squares);
   let status;
+  debugger
+  let winnerName = (winner === 'X') ? players[0] : players[1]
+  if(playAgainstComputer && winner === "O") { winnerName = "Computer"}
   if (winner) {
-    status = "Winner of this round is: " + winner;
+    status = "Winner of this round is: " + winnerName;
   } else {
-    status = "Next player is: " + (xIsNext ? "O" : "X");
+    status = "Next player is: " + (xIsNext ? players[0] : players[1]);
   }
 
   return (
@@ -55,15 +61,43 @@ function Board({ xIsNext, squares, onPlay }) {
 }
 
 export default function Game() {
+  const [firstPlayerTitle, setFirstPlayerTitle] = useState("Player 1");
+  const [secondPlayerTitle, setSecondPlayerTitle] = useState("Player 2");
+  const [players, setPlayers] = useState([firstPlayerTitle, secondPlayerTitle]);
+
+  useEffect(() => {
+    let updatedPlayers = [firstPlayerTitle, secondPlayerTitle]
+    setPlayers(updatedPlayers)
+  }, [firstPlayerTitle, secondPlayerTitle])
+
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
+  const [playAgainstComputer, setPlayAgainstComputer] = useState(false);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
+  const handlePlayerTitleChange = (id, value) => {
+    if (id === "player1") {
+      setFirstPlayerTitle(value);
+    } else {
+      setSecondPlayerTitle(value);
+    }
+  };
+
   function handlePlay(nextSquares) {
-    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
-    setHistory(nextHistory);
-    setCurrentMove(nextHistory.length - 1);
+    const nextHistory = history.slice(0, currentMove + 1);
+    const newCurrentMove = nextHistory.length;
+    const newHistory = [...nextHistory, nextSquares];
+
+    if (playAgainstComputer && !calculateWinner(nextSquares) && xIsNext) {
+      const computerMove = findBestMove(nextSquares);
+      nextSquares[computerMove] = "O";
+      setHistory([...newHistory, nextSquares]);
+      setCurrentMove(newCurrentMove + 1);
+    } else {
+      setHistory(newHistory);
+      setCurrentMove(newCurrentMove);
+    }
   }
 
   function jumpTo(nextMove) {
@@ -73,9 +107,9 @@ export default function Game() {
   const moves = history.map((squares, move) => {
     let description;
     if (move > 0) {
-      description = 'Go to move #' + move;
+      description = "Go to move #" + move;
     } else {
-      description = 'Go to game start';
+      description = "Go to game start";
     }
     return (
       <li key={move}>
@@ -84,15 +118,34 @@ export default function Game() {
     );
   });
 
+  const handleTogglePlayer = () => {
+    setPlayAgainstComputer(!playAgainstComputer);
+    setHistory([Array(9).fill(null)]);
+    setCurrentMove(0);
+  };
+
   return (
+    <>
+    <ol id="players">
+        <Player id="player1" name={firstPlayerTitle} updatePlayerTitle={handlePlayerTitleChange} symbol="X"/>
+        { !playAgainstComputer && <Player id="player2" name={secondPlayerTitle} updatePlayerTitle={handlePlayerTitleChange} symbol="O"/> }
+      </ol>
     <div className="game">
+      <div className="game-top">
+        <button onClick={handleTogglePlayer}>
+          {playAgainstComputer
+            ? "Play against other player"
+            : "Play against computer"}
+        </button>
+      </div>
       <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} players={players} playAgainstComputer={playAgainstComputer} />
       </div>
       <div className="game-info">
         <ol>{moves}</ol>
       </div>
     </div>
+    </>
   );
 }
 
@@ -114,4 +167,25 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+
+function findBestMove(squares) {
+  const emptySquares = [];
+  for (let i = 0; i < squares.length; i++) {
+    if (!squares[i]) {
+      const tempSquares = squares.slice();
+      tempSquares[i] = "X";
+      if (calculateWinner(tempSquares)) {
+        return i;
+      }
+      emptySquares.push(i);
+    }
+  }
+
+  if (emptySquares.length > 0) {
+    const randomIndex = Math.floor(Math.random() * emptySquares.length);
+    return emptySquares[randomIndex];
+  }
+
+  return -1;
 }
