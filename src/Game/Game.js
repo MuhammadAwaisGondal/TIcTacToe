@@ -7,7 +7,7 @@ function Square({ value, onSquareClick }) {
   return(
     <button className={`square ${value === 'O' ? "blue" : "green"}`} onClick={onSquareClick}>
       {value}
-      </button>
+    </button>
   );
 }
 
@@ -126,25 +126,25 @@ export default function Game() {
 
   return (
     <>
-    <ol id="players">
+      <ol id="players">
         <Player id="player1" name={firstPlayerTitle} updatePlayerTitle={handlePlayerTitleChange} symbol="X"/>
         { !playAgainstComputer && <Player id="player2" name={secondPlayerTitle} updatePlayerTitle={handlePlayerTitleChange} symbol="O"/> }
       </ol>
-    <div className="game">
-      <div className="game-top">
-        <button onClick={handleTogglePlayer}>
-          {playAgainstComputer
-            ? "Play against other player"
-            : "Play against computer"}
-        </button>
+      <div className="game">
+        <div className="game-top">
+          <button onClick={handleTogglePlayer}>
+            {playAgainstComputer
+              ? "Play against other player"
+              : "Play against computer"}
+          </button>
+        </div>
+        <div className="game-board">
+          <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} players={players} playAgainstComputer={playAgainstComputer} />
+        </div>
+        <div className="game-info">
+          <ol>{moves}</ol>
+        </div>
       </div>
-      <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} players={players} playAgainstComputer={playAgainstComputer} />
-      </div>
-      <div className="game-info">
-        <ol>{moves}</ol>
-      </div>
-    </div>
     </>
   );
 }
