@@ -1,4 +1,5 @@
 import { useState } from "react"
+import "./Player.css";
 
 export default function Player({id, name, symbol, updatePlayerTitle}) {
 

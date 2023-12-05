@@ -37,14 +37,9 @@
   }
 }
 
-* {
-  box-sizing: border-box;
-}
-
 body {
   font-family: sans-serif;
   margin: 20px;
-  padding: 0;
 }
 
 h1 {
@@ -215,16 +210,7 @@ body {
   align-items: center;
 }
 
-/* Add your styles for sun and moon using the colors object */
-.sun {
-  color: yellow; /* colors.sun.light */
-}
-
-.moon {
-  color: #c96dfd; /* colors.moon.dark */
-}
 .scrollhistory {
-  
   appearance: none;
   background-color: #46432f;
   border-radius: 6px;
@@ -255,13 +241,10 @@ body {
   margin-bottom: 0.5rem;
 }
 
-
-
 .scrollhistory:focus:not(:focus-visible):not(.focus-visible) {
   box-shadow: none;
   outline: none;
 }
-
 
 .scrollhistory:focus {
   box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
@@ -276,11 +259,5 @@ body {
 }
 
 .scrollhistory:active {
-  background-color: #298e46;
   box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
-}
-.player-symbol {
-  margin-left: 1rem;
-  font-size: 1rem;
-  color: #c3b759;
 }
