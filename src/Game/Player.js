@@ -1,5 +1,6 @@
 import { useState } from "react"
 import "./Player.css";
+import "../Mode.css";
 
 export default function Player({id, name, symbol, updatePlayerTitle}) {
 
