@@ -28,6 +28,10 @@
     color : green;
     font-weight: bold;
   }
+.dark-mode .pink {
+  color: rgb(255, 128, 0);
+  font-weight: bold;
+}
 
 #players.highlight-player li.active .player-name,
 #players.highlight-player li.active .player-symbol {
@@ -84,6 +88,10 @@
   
 .player-symbol {
     margin-left: 1rem;
-    font-size: 1rem;
+    font-size: 2rem;
     color: #514805;
+}
+
+.dark-mode .player-symbol {
+  color: #c3b759;
 }
