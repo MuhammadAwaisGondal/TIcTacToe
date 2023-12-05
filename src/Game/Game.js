@@ -7,7 +7,6 @@ import Player from "./Player";
 function Square({ value, onSquareClick }) {
   return(
     <button data-testid="square" className={`square ${value === 'O' ? "pink" : "green"}`} onClick={onSquareClick}>
-
     {value}
     </button>
   );
