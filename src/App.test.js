@@ -1,66 +1,41 @@
-import { render, screen, fireEvent} from '@testing-library/react';
-import App from './App';
-import Game from './Game/Game';
+import { getByText, render, screen, fireEvent } from "@testing-library/react";
+import App from "./App";
+import Game from "./Game/Game";
 
-test('renders learn react link', () => {
+test("renders Welcome to TicTacToe!", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
+  const linkElement = screen.getByText(/"Welcome to TicTacToe!"/i);
   expect(linkElement).toBeInTheDocument();
 });
 
-test('Toggle to Dark Mode', () => {
-  const { getByText } = render(<App />);
-  
-  // Find the switch element
-  const switchElement = getByText('☀︎');
-  
-  // Simulate a click on the switch
-  fireEvent.click(switchElement);
-  
-  // Check if the dark mode class is applied to the container
-  const container = getByText('Welcome to TicTacToe!').closest('.dark-mode');
-  expect(container).toBeInTheDocument();
+test("toggle player computer", () => {
+  render(<App />);
+  const linkElement = screen.getByTestId("go-to-start");
+  expect(linkElement).toHaveTextContent("Play against computer");
+
+  fireEvent.click(linkElement);
+  expect(linkElement).toHaveTextContent("Play against other player");
+
+  fireEvent.click(linkElement);
+  expect(linkElement).toHaveTextContent("Play against computer");
 });
 
-test('Toggle to Light Mode', () => {
-  const { getByText } = render(<App />);
-  
-  // Find the switch element
-  const switchElement = getByText('☀︎');
-  
-  // Simulate a click on the switch
-  fireEvent.click(switchElement);
-  
-  // Simulate another click to toggle back to light mode
-  fireEvent.click(switchElement);
+test("toggle dark light", () => {
+  render(<App />);
+  const linkElement = document.getElementById("switch");
+  var ischecked = linkElement.checked;
+  var strchecked = ischecked.toString();
+  expect(strchecked).toMatch("false");
 
-  // Check if the light mode class is applied to the container
-  const container = getByText('Welcome to TicTacToe!').closest('.light-mode');
-  expect(container).toBeInTheDocument();
-});
+  fireEvent.click(linkElement);
 
-test('Render App Component', () => {
-  const { getByText } = render(<App />);
-  const welcomeElement = getByText('Welcome to TicTacToe!');
-  expect(welcomeElement).toBeInTheDocument();
-});
+  var ischecked = linkElement.checked;
+  var strchecked = ischecked.toString();
+  expect(strchecked).toMatch("true");
 
-test('Render Game Component', () => {
-  const { getByText } = render(<Game />);
-  const statusElement = getByText('Next player:');
-  expect(statusElement).toBeInTheDocument();
-});
+  fireEvent.click(linkElement);
 
-test('Make a Move in the Game', () => {
-  const { getByText, getByTestId } = render(<App />);
-  const switchElement = getByText('☀︎');
-  fireEvent.click(switchElement); // Toggle to dark mode
-
-  const squareElement = getByTestId('square-0'); // Assuming you have a data-testid for the squares
-  fireEvent.click(squareElement);
-
-  const statusElement = getByText('Next player:');
-  const moveElement = getByText('Go to game start');
-  expect(statusElement).toBeInTheDocument();
-  expect(moveElement).toBeInTheDocument();
+  var ischecked = linkElement.checked;
+  var strchecked = ischecked.toString();
+  expect(strchecked).toMatch("false");
 });

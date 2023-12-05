@@ -6,8 +6,9 @@ import Player from "./Player";
 
 function Square({ value, onSquareClick }) {
   return(
-    <button className={`square ${value === 'O' ? "pink" : "green"}`} onClick={onSquareClick}>
-      {value}
+    <button data-testid="square" className={`square ${value === 'O' ? "pink" : "green"}`} onClick={onSquareClick}>
+
+    {value}
     </button>
   );
 }
@@ -132,7 +133,7 @@ export default function Game() {
       </ol>
       <div className="game">
         <div className="game-top">
-          <button onClick={handleTogglePlayer}>
+          <button data-testid="go-to-start" id="toggleplayer" onClick={handleTogglePlayer}>
             {playAgainstComputer
               ? "Play against other player"
               : "Play against computer"}
@@ -142,7 +143,7 @@ export default function Game() {
           <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} players={players} playAgainstComputer={playAgainstComputer} />
         </div>
         <div className="game-info">
-          <ol>{moves}</ol>
+          <ol data-testid="history-move">{moves}</ol>
         </div>
       </div>
     </>
