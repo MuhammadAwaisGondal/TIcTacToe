@@ -1,16 +1,16 @@
 import "./Games.css";
+import "./Player.css";
 import React, { useState, useEffect } from "react";
 import Player from "./Player";
 
 
 function Square({ value, onSquareClick }) {
   return(
-    <button className={`square ${value === 'O' ? "blue" : "green"}`} onClick={onSquareClick}>
+    <button className={`square ${value === 'O' ? "pink" : "green"}`} onClick={onSquareClick}>
       {value}
     </button>
   );
 }
-
 
 function Board({ xIsNext, squares, onPlay, players, playAgainstComputer }) {
   
