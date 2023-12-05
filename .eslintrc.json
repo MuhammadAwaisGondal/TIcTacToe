@@ -4,6 +4,6 @@
       "react-app/jest"
     ],
     "rules": {
-        "indent": ["error", 2]
+        "indent": ["warn", 2]
     }
 }
