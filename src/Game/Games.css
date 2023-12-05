@@ -1,7 +1,7 @@
 .square {
     text-align: center;
-    background: #fff;
-    border: 1px solid #999;
+    background: white;
+    border: 1px solid #868585;
     float: left;
     font-size: 34px;
     font-weight: bold;
@@ -10,6 +10,10 @@
     margin-right: -1px;
     margin-top: -1px;
     width: 64px;
+}
+
+.dark-mode .square {
+    background: rgb(211, 191, 191);
 }
 
 .board {
@@ -24,8 +28,9 @@
 }
 
 .status {
-margin-bottom: 20px;
-margin-left: 50px;
+    margin-bottom: 20px;
+    margin-left: 50px;
+    font-size: large;
 }
 
 .game {
@@ -67,3 +72,43 @@ margin-left: 50px;
   width: 250px;
   text-transform: uppercase;
   }
+
+/* Add confetti animation for celebration */
+@keyframes confetti {
+    0% {
+      transform: translateY(0) rotate(0);
+    }
+    100% {
+      transform: translateY(-500px) rotate(360deg);
+    }
+  }
+  
+  .confetti {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    opacity: 0.9;
+    animation: confetti 2s ease-out;
+    animation-iteration-count: 1;
+}
+
+.confetti-red {
+    background-color: #e44d26;
+  }
+  
+  .confetti-green {
+    background-color: #43a047;
+  }
+  
+  .confetti-blue {
+    background-color: #2196f3;
+  }
+  
+  .confetti-yellow {
+    background-color: #ffeb3b;
+  }
+  
+  .confetti-purple {
+    background-color: #9c27b0;
+  }
+  

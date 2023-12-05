@@ -1,17 +1,25 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+}
+
 * {
     box-sizing: content-box;
     margin: 0px;
     padding: 0px;
-  }
-  #root {
-    height: 100%; 
-  }
-  
-  html,
-  body {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
   }
   
   span {
@@ -32,17 +40,10 @@
     transition: background-color 0.25s ease-in-out;
   }
   
-  .container {
-    display: flex;
-    justify-content: right;
-    align-items: center;
-  }
-  
   .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 14px;
+    margin-right: 10px;
   }
   
   .switch input {
@@ -114,11 +115,19 @@
     padding: 10px;
   }
   
-  /* Add your styles for sun and moon using the colors object */
+  /* styles for sun and moon using the colors object */
 .sun {
   color: rgb(255, 187, 0); /* colors.sun.light */
 }
 
 .moon {
   color: #c96dfd; /* colors.moon.dark */
+}
+
+.dark-mode .game {
+  color: #c3b759;
+}
+
+.dark-mode .status {
+  color: #c3b759;
 }
