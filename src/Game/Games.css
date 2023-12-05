@@ -1,11 +1,69 @@
-.Square {
+.square {
     text-align: center;
+    background: #fff;
+    border: 1px solid #999;
+    float: left;
+    font-size: 34px;
+    font-weight: bold;
+    line-height: 64px;
+    height: 64px;
+    margin-right: -1px;
+    margin-top: -1px;
+    width: 64px;
 }
 
-.Board {
+.board {
     text-align: center;
+    margin: 0 auto;
 }
 
-.Game {
+.board-row:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+.status {
+margin-bottom: 20px;
+margin-left: 50px;
+}
+
+.game {
     box-align: center;
+    color: #68612d;
+    font-weight: bold;
 }
+
+.game-info {
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+.game-top{
+    margin: 10px 0 10px 0;
+}
+
+/* Add color to play against computer button */
+.game-top button {
+  border-radius: 6px;
+  background-color: #46432f;
+  box-sizing: border-box;
+  color:#c3b759;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 250px;
+  text-transform: uppercase;
+  }

@@ -1,42 +1,11 @@
-import { render, screen, fireEvent} from '@testing-library/react';
+import { getByText, render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 import Game from './Game/Game';
 
-test('renders learn react link', () => {
+test('renders Welcome to TicTacToe!', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
+  const linkElement = screen.getByText(/"Welcome to TicTacToe!"/i);
   expect(linkElement).toBeInTheDocument();
-});
-
-test('Toggle to Dark Mode', () => {
-  const { getByText } = render(<App />);
-  
-  // Find the switch element
-  const switchElement = getByText('☀︎');
-  
-  // Simulate a click on the switch
-  fireEvent.click(switchElement);
-  
-  // Check if the dark mode class is applied to the container
-  const container = getByText('Welcome to TicTacToe!').closest('.dark-mode');
-  expect(container).toBeInTheDocument();
-});
-
-test('Toggle to Light Mode', () => {
-  const { getByText } = render(<App />);
-  
-  // Find the switch element
-  const switchElement = getByText('☀︎');
-  
-  // Simulate a click on the switch
-  fireEvent.click(switchElement);
-  
-  // Simulate another click to toggle back to light mode
-  fireEvent.click(switchElement);
-
-  // Check if the light mode class is applied to the container
-  const container = getByText('Welcome to TicTacToe!').closest('.light-mode');
-  expect(container).toBeInTheDocument();
 });
 
 test('Render App Component', () => {
@@ -117,4 +86,38 @@ test('Input Validation for Player Names', () => {
   // Check for validation messages
   expect(getByText('Please enter a valid name for Player 1')).toBeInTheDocument();
   expect(getByText('Player 2 name should not exceed 10 characters')).toBeInTheDocument();
+});
+
+test('toggle player computer', () => {
+  render(<App />);
+  const linkElement = screen.getByTestId("go-to-start");
+  expect(linkElement).toHaveTextContent("Play against computer");
+
+  fireEvent.click(linkElement);
+  expect(linkElement).toHaveTextContent("Play against other player");
+
+  fireEvent.click(linkElement);
+  expect(linkElement).toHaveTextContent("Play against computer");
+
+});
+
+test('toggle dark light', () => {
+  render(<App />);
+  const linkElement = document.getElementById("switch");
+  var ischecked=linkElement.checked;
+  var strchecked=ischecked.toString();
+  expect(strchecked).toMatch("false");
+
+  fireEvent.click(linkElement);
+
+  var ischecked=linkElement.checked;
+  var strchecked=ischecked.toString();
+  expect(strchecked).toMatch("true");
+
+  fireEvent.click(linkElement);
+
+  var ischecked=linkElement.checked;
+  var strchecked=ischecked.toString();
+  expect(strchecked).toMatch("false");
+
 });
