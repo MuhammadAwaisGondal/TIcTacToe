@@ -173,7 +173,6 @@ export default function Game() {
         <div className="game-info">
           <ol data-testid="history-move">{moves}</ol>
         </div>
-        <div id="confetti-container"></div>
       </div>
     </>
   );
@@ -193,19 +192,6 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      // Trigger multi-color confetti effect on winning
-      const confettiContainer = document.getElementById("confetti-container");
-
-      const colors = ["confetti-red", "confetti-green", "confetti-blue", "confetti-yellow", "confetti-purple"];
-
-      for (let j = 0; j < 50; j++) {
-        const confetti = document.createElement("div");
-        confetti.className = "confetti " + colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.animationDuration = Math.random() * 2 + 1 + "s";
-        confettiContainer.appendChild(confetti);
-      }
-
       return squares[a];
     }
   }

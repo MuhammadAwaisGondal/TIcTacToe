@@ -1,6 +1,7 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { screen, render, fireEvent } from '@testing-library/react';
 import Player from './Player';
+import App from '../App';
 
 describe('Player component', () => {
   test('Enable input field on Edit button click', () => {
@@ -13,7 +14,6 @@ describe('Player component', () => {
     expect(inputField).toBeEnabled();
   });
 });
-
 
 describe('Player component', () => {
     test('Disable input field on Save button click', () => {
@@ -31,4 +31,3 @@ describe('Player component', () => {
       expect(inputField).toBeDisabled();
     });
   });
-
