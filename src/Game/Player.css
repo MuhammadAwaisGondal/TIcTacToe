@@ -13,6 +13,7 @@
     align-items: center;
     width: 50%;
     border: 2px solid transparent;
+    justify-content: center;
   }
   
 #players.highlight-player li.active {
@@ -59,6 +60,10 @@
     padding: 0.5rem;
     border-radius: 4px;
     font-weight: bold;
+
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
   }
   
 .player-name {

@@ -110,17 +110,22 @@ body {
   content: "";
   display: table;
 }
-
-.status {
-  margin-bottom: 10px;
-}
-.game-info {
-  margin-left: 20px;
+.game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .game-top{
   margin: 10px 0 10px 0;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  height: 50px;
 }
-
+.game-board {
+  display: contents;
+}
 
 #players {
   list-style: none;
