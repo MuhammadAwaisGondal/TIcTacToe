@@ -1,16 +1,16 @@
 * {
-    box-sizing: border-box;
+    box-sizing: content-box;
     margin: 0px;
     padding: 0px;
   }
   #root {
-    height: 100%;
+    height: 100%; 
   }
   
   html,
   body {
-    min-height: 100vh;
     height: 100%;
+    width: 100%;
   }
   
   span {
@@ -25,7 +25,7 @@
   }
   
   .light-mode {
-    background-color: #dec0c0;
+    background-color: #e2ecef;
     color: #333;
     height: 100%;
     transition: background-color 0.25s ease-in-out;
@@ -113,3 +113,11 @@
     padding: 10px;
   }
   
+  /* Add your styles for sun and moon using the colors object */
+.sun {
+  color: rgb(255, 187, 0); /* colors.sun.light */
+}
+
+.moon {
+  color: #c96dfd; /* colors.moon.dark */
+}
