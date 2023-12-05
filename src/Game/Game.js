@@ -4,35 +4,39 @@ import "../Mode.css";
 import React, { useState, useEffect } from "react";
 import Player from "./Player";
 
-
 function Square({ value, onSquareClick }) {
-  return(
-    <button data-testid="square" className={`square ${value === 'O' ? "pink" : "green"}`} onClick={onSquareClick}>
+  return (
+    <button
+      data-testid="square"
+      className={`square ${value === "O" ? "pink" : "green"}`}
+      onClick={onSquareClick}
+    >
       {value}
     </button>
   );
 }
 
 function Board({ xIsNext, squares, onPlay, players, playAgainstComputer }) {
-  
   function handleClick(i) {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
     const nextSquares = squares.slice();
     if (xIsNext) {
-      nextSquares[i] = 'X';
+      nextSquares[i] = "X";
     } else {
-      nextSquares[i] = 'O';
+      nextSquares[i] = "O";
     }
     onPlay(nextSquares);
   }
 
   const winner = calculateWinner(squares);
   let status;
-  debugger
-  let winnerName = (winner === 'X') ? players[0] : players[1]
-  if(playAgainstComputer && winner === "O") { winnerName = "Computer"}
+  debugger;
+  let winnerName = winner === "X" ? players[0] : players[1];
+  if (playAgainstComputer && winner === "O") {
+    winnerName = "Computer";
+  }
   if (winner) {
     status = "Winner of this round is: " + winnerName;
   } else {
@@ -67,9 +71,9 @@ export default function Game() {
   const [players, setPlayers] = useState([firstPlayerTitle, secondPlayerTitle]);
 
   useEffect(() => {
-    let updatedPlayers = [firstPlayerTitle, secondPlayerTitle]
-    setPlayers(updatedPlayers)
-  }, [firstPlayerTitle, secondPlayerTitle])
+    let updatedPlayers = [firstPlayerTitle, secondPlayerTitle];
+    setPlayers(updatedPlayers);
+  }, [firstPlayerTitle, secondPlayerTitle]);
 
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
@@ -114,7 +118,9 @@ export default function Game() {
     }
     return (
       <li className="lis" key={move}>
-        <button className="scrollhistory" onClick={() => jumpTo(move)}>{description}</button>
+        <button className="scrollhistory" onClick={() => jumpTo(move)}>
+          {description}
+        </button>
       </li>
     );
   });
@@ -128,24 +134,45 @@ export default function Game() {
   return (
     <>
       <ol id="players">
-        <Player id="player1" name={firstPlayerTitle} updatePlayerTitle={handlePlayerTitleChange} symbol="X"/>
-        { !playAgainstComputer && <Player id="player2" name={secondPlayerTitle} updatePlayerTitle={handlePlayerTitleChange} symbol="O"/> }
+        <Player
+          id="player1"
+          name={firstPlayerTitle}
+          updatePlayerTitle={handlePlayerTitleChange}
+          symbol="X"
+        />
+        {!playAgainstComputer && (
+          <Player
+            id="player2"
+            name={secondPlayerTitle}
+            updatePlayerTitle={handlePlayerTitleChange}
+            symbol="O"
+          />
+        )}
       </ol>
       <div className="game">
         <div className="game-top">
-          <button data-testid="go-to-start" id="toggleplayer" onClick={handleTogglePlayer}>
+          <button
+            data-testid="go-to-start"
+            id="toggleplayer"
+            onClick={handleTogglePlayer}
+          >
             {playAgainstComputer
               ? "Play against other player"
               : "Play against computer"}
           </button>
         </div>
         <div className="game-board">
-          <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} players={players} playAgainstComputer={playAgainstComputer} />
+          <Board
+            xIsNext={xIsNext}
+            squares={currentSquares}
+            onPlay={handlePlay}
+            players={players}
+            playAgainstComputer={playAgainstComputer}
+          />
         </div>
         <div className="game-info">
           <ol data-testid="history-move">{moves}</ol>
         </div>
-        <div id="confetti-container"></div>
       </div>
     </>
   );
@@ -165,19 +192,6 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      // Trigger multi-color confetti effect on winning
-      const confettiContainer = document.getElementById("confetti-container");
-
-      const colors = ["confetti-red", "confetti-green", "confetti-blue", "confetti-yellow", "confetti-purple"];
-
-      for (let j = 0; j < 50; j++) {
-        const confetti = document.createElement("div");
-        confetti.className = "confetti " + colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.animationDuration = Math.random() * 2 + 1 + "s";
-        confettiContainer.appendChild(confetti);
-      }
-
       return squares[a];
     }
   }
